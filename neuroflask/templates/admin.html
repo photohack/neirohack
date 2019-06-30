@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block page_title %}Управление устройствами{% endblock %}
+{% block body %}
+    {{ super() }}
+    
+    {# only invoked when failed adding new ID due to duplication #}
+    {% if id_to_add_is_duplicated %}
+    <div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Ошибка!</strong> Данное имя уже существует.
+    </div>
+    {% endif %}
+    
+    {# only invoked when failed adding new ID due to invalid character #}
+    {% if id_to_add_is_invalid %}
+    <div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Ошибка!</strong> Неверное имя.
+    </div>
+    {% endif %}
+
+    <div class = "container">
+      <div class="row">
+
+        <div class="col-lg-6">
+          <h3>Добавить устройство (напр. B571)</h3>
+
+          <form class="form-inline" action="/add_user" method='post'>
+            <div class="form-group">
+              <label for="id">Имя</label>
+              <input type="text" class="form-control" name="id">
+            </div>
+            <div class="form-group">
+              <label for="pw">Пароль</label>
+              <input type="password" class="form-control" name="pw">
+            </div>
+            <br><br>
+            <button type="submit" class="btn">Подтвердить</button>
+          </form>
+        </div>
+
+        <div class="col-lg-6">
+              <h3>Управление текущими устройствами</h3>
+
+                <table class="table small">
+                <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Имя</th>
+                      <th>Действие</th>
+                    </tr>
+                </thead>
+                {% for number, id, act in users %}
+                        <tr>
+                           <th> {{ number }} </th>
+                           <td> {{ id }} </td>
+                           <td><a href={{act}}>Удалить</a></td>
+                        </tr>
+                        
+                {% endfor %}
+                </table>
+        </div>
+
+      </div>
+    </div>
+
+
+{% endblock %}

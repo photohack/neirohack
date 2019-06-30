@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block page_title %}Калибровка{% endblock %}
+{% block body %}
+    {{ super() }}
+    <div>
+    <img id="bg" src="{{ url_for('video_feed') }}">
+</div>
+<p></p>
+    <p></p>
+    <img id="bg" src="{{ url_for('static', filename='img/ezgif.gif') }}">
+    <a href="/result/" class="btn btn-success">Результат</a>
+
+{% endblock %}

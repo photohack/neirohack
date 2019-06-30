@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block page_title %}Выбор устройства{% endblock %}
+{% block body %}
+    {{ super() }}
+
+    <h4>Описание подключения.</h4>
+
+    <hr>
+    
+    <h3>Добавьте описание исследования</h3>
+    <div class="form-group">
+      <label for="textArea" class="col-lg-3 control-label">Записать</label>
+      <div class="col-lg-9">
+      <form action="/write_note" method="post">
+        <input class="form-control" name="text_note_to_take"></input>
+        <p></p>
+        <button type="submit" class="btn btn-success">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <hr>
+
+    {% if notes %}
+        <h3>Описания предыдущих обследований</h3>
+        <table class="table small">
+            <thead>
+                <tr>
+                  <th>Запись</th>
+                  <th>Время</th>
+                  <th>Действие</th>
+                </tr>
+            </thead>
+            {% for note_id, timestamp, note, act in notes %}
+                    <tr>
+                      <td> {{ note }} </td>
+                       <td> {{ timestamp }} </td>
+                       <td><a href={{act}}>Удалить</a></td>
+                    </tr>
+                    
+            {% endfor %}
+        </table>
+    {% endif %}
+    <div>
+              <form action="/processing" method="post">
+                   <button type="submit" class="btn btn-lg btn-danger">Калибровать</button>
+              </form>
+              
+            </div>
+
+{% endblock %}
